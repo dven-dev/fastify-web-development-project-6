@@ -25,6 +25,7 @@ module.exports = class Task extends BaseModel {
   static get relationMappings() {
     const User = require('./User.cjs');
     const TaskStatus = require('./TaskStatus.cjs');
+    const Label = require('./Label.cjs');
 
     return {
       status: {
@@ -49,6 +50,18 @@ module.exports = class Task extends BaseModel {
         join: {
           from: 'tasks.executor_id',
           to: 'users.id',
+        },
+      },
+      labels: {
+        relation: BaseModel.ManyToManyRelation,
+        modelClass: Label,
+        join: {
+          from: 'tasks.id',
+          through: {
+            from: 'tasks_labels.task_id',
+            to: 'tasks_labels.label_id',
+          },
+          to: 'labels.id',
         },
       },
     };

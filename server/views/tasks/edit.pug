@@ -13,6 +13,7 @@ block content
     .mb-3
       label(for='data_statusId')= t('views.tasks.status')
       select.form-control(id='data_statusId' name='data[statusId]')
+        option(value='')
         each status in statuses
           option(value=status.id selected=(task.statusId == status.id))= status.name
     .mb-3
@@ -21,4 +22,10 @@ block content
         option(value='')
         each user in users
           option(value=user.id selected=(task.executorId == user.id))= `${user.firstName} ${user.lastName}`
+    .mb-3
+      label(for='data_labelIds')= t('views.tasks.labels')
+      select.form-control(id='data_labelIds' name='data[labelIds][]' multiple)
+        each label in labels
+          - const selected = task.labels && task.labels.some(l => l.id === label.id)
+          option(value=label.id selected=selected)= label.name
     +submit(task)(value=t('views.tasks.edit.submit'))

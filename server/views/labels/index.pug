@@ -1,0 +1,27 @@
+extends ../layouts/application.pug
+
+block header
+  = t('views.labels.index.title')
+
+block content
+  if isAuthenticated()
+    a.btn.btn-primary.mb-3(href=route('newLabel'))= t('views.labels.new.title')
+  table.table
+    thead
+      tr
+        th= t('views.labels.id')
+        th= t('views.labels.name')
+        th= t('views.labels.createdAt')
+        if isAuthenticated()
+          th= t('views.labels.actions')
+    tbody
+      each label in labels
+        tr
+          td= label.id
+          td= label.name
+          td= formatDate(label.createdAt)
+          if isAuthenticated()
+            td
+              a(href=route('editLabel', { id: label.id }))= t('views.labels.edit.title')
+              |  
+              +buttonTo(route('deleteLabel', { id: label.id }), 'delete')(class="btn btn-link p-0" value=t('views.labels.delete'))
