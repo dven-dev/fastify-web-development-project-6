@@ -143,6 +143,13 @@ export default {
         index: {
           title: 'Задачи',
         },
+        filter: {
+          status: 'Статус',
+          executor: 'Исполнитель',
+          label: 'Метка',
+          myTasks: 'Только мои задачи',
+          submit: 'Показать',
+        },
         new: {
           title: 'Создание задачи',
           submit: 'Создать',

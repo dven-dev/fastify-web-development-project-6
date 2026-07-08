@@ -143,6 +143,13 @@ export default {
         index: {
           title: 'Tasks',
         },
+        filter: {
+          status: 'Status',
+          executor: 'Executor',
+          label: 'Label',
+          myTasks: 'Only my tasks',
+          submit: 'Show',
+        },
         new: {
           title: 'Create task',
           submit: 'Create',
