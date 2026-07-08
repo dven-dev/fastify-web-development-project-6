@@ -1,10 +1,8 @@
 - const getInputName = (property) => `data[${property}]`
 - const getInputId = (property) => `data_${property}`
-
 mixin formFor(entity = null)
   form&attributes(attributes)
     block
-
 mixin input(entity, propertyName, errors = {})
   - propertyErrors = _.get(errors, propertyName)
   - classLine = 'form-control' + (_.isEmpty(propertyErrors) ? '' : ' is-invalid')
@@ -12,7 +10,7 @@ mixin input(entity, propertyName, errors = {})
   .mb-3(class=(errors[propertyName] && 'has-danger'))
     label(
       for= inputId
-    )= propertyName
+    )= t(`views.users.${propertyName}`)
     input(
       id= inputId
       name=getInputName(propertyName)
@@ -21,10 +19,8 @@ mixin input(entity, propertyName, errors = {})
     )&attributes(attributes)
     if !_.isEmpty(propertyErrors)
       .invalid-feedback= propertyErrors.map(({ message }) => message).join('. ')
-
 mixin submit(form = null)
   input(class='btn btn-primary' type='submit')&attributes(attributes)
-
 mixin buttonTo(action, method)
   form(action=action, method="post")
     input(name="_method" type="hidden" value=method)

@@ -1,11 +1,9 @@
 // @ts-check
-
 import i18next from 'i18next';
 import _ from 'lodash';
-
 export default (app) => ({
-  route(name) {
-    return app.reverse(name);
+  route(name, args) {
+    return app.reverse(name, args);
   },
   t(key) {
     return i18next.t(key);
@@ -13,8 +11,6 @@ export default (app) => ({
   _,
   getAlertClass(type) {
     switch (type) {
-      // case 'failure':
-      //   return 'danger';
       case 'error':
         return 'danger';
       case 'success':
