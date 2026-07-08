@@ -4,22 +4,25 @@ block header
   = task.name
 
 block content
-  p
-    strong= t('views.tasks.status')
-    |  #{task.status ? task.status.name : ''}
-  p
-    strong= t('views.tasks.creator')
-    |  #{task.creator ? `${task.creator.firstName} ${task.creator.lastName}` : ''}
-  p
-    strong= t('views.tasks.executor')
-    |  #{task.executor ? `${task.executor.firstName} ${task.executor.lastName}` : ''}
-  p
-    strong= t('views.tasks.description')
-    |  #{task.description}
-  p
-    strong= t('views.tasks.createdAt')
-    |  #{formatDate(task.createdAt)}
-  if isAuthenticated()
-    a.btn.btn-primary(href=route('editTask', { id: task.id }))= t('views.tasks.edit.title')
-    if currentUser && currentUser.id === task.creatorId
-      +buttonTo(route('deleteTask', { id: task.id }), 'delete')(class="btn btn-danger ms-2" value=t('views.tasks.delete'))
+  .card.shadow-sm
+    .card-body
+      .row
+        .col-md-8
+          p= task.description
+        .col-md-4
+          if task.status
+            span.badge.bg-danger.mb-2= task.status.name
+          p
+            | #{t('views.tasks.creator')}  
+            = task.creator ? `${task.creator.firstName} ${task.creator.lastName}` : ''
+          p
+            | #{t('views.tasks.executor')}  
+            = task.executor ? `${task.executor.firstName} ${task.executor.lastName}` : ''
+          p
+            | #{t('views.tasks.createdAt')}  
+            = formatDate(task.createdAt)
+          if isAuthenticated()
+            .d-flex.gap-2
+              a.btn.btn-primary(href=route('editTask', { id: task.id }))= t('views.tasks.edit.title')
+              if currentUser && currentUser.id === task.creatorId
+                +buttonTo(route('deleteTask', { id: task.id }), 'delete')(class="btn btn-danger" value=t('views.tasks.delete'))

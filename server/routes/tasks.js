@@ -65,7 +65,7 @@ export default (app) => {
         const validTask = await app.objection.models.task.fromJson({
           ...req.body.data,
           statusId: parseInt(req.body.data.statusId, 10),
-          executorId: req.body.data.executorId ? parseInt(req.body.data.executorId, 10) : null,
+          executorId: req.body.data.executorId ? parseInt(req.body.data.executorId, 10) : undefined,
           creatorId: req.user.id,
         });
         const insertedTask = await app.objection.models.task.query().insert(validTask);
@@ -92,7 +92,7 @@ export default (app) => {
         await task.$query().patch({
           ...req.body.data,
           statusId: parseInt(req.body.data.statusId, 10),
-          executorId: req.body.data.executorId ? parseInt(req.body.data.executorId, 10) : null,
+          executorId: req.body.data.executorId ? parseInt(req.body.data.executorId, 10) : undefined,
         });
         await task.$relatedQuery('labels').unrelate();
         if (labelIds.length > 0) {
