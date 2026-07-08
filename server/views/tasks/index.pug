@@ -1,0 +1,34 @@
+extends ../layouts/application.pug
+
+block header
+  = t('views.tasks.index.title')
+
+block content
+  if isAuthenticated()
+    a.btn.btn-primary.mb-3(href=route('newTask'))= t('views.tasks.new.title')
+  table.table
+    thead
+      tr
+        th= t('views.tasks.id')
+        th= t('views.tasks.name')
+        th= t('views.tasks.status')
+        th= t('views.tasks.creator')
+        th= t('views.tasks.executor')
+        th= t('views.tasks.createdAt')
+        th= t('views.tasks.actions')
+    tbody
+      each task in tasks
+        tr
+          td= task.id
+          td
+            a(href=route('task', { id: task.id }))= task.name
+          td= task.status ? task.status.name : ''
+          td= task.creator ? `${task.creator.firstName} ${task.creator.lastName}` : ''
+          td= task.executor ? `${task.executor.firstName} ${task.executor.lastName}` : ''
+          td= formatDate(task.createdAt)
+          td
+            if isAuthenticated()
+              a(href=route('editTask', { id: task.id }))= t('views.tasks.edit.title')
+              |  
+              if currentUser && currentUser.id === task.creatorId
+                +buttonTo(route('deleteTask', { id: task.id }), 'delete')(class="btn btn-link p-0" value=t('views.tasks.delete'))

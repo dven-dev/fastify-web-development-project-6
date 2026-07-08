@@ -1,0 +1,24 @@
+extends ../layouts/application.pug
+
+block header
+  = t('views.tasks.new.title')
+
+block content
+  +formFor()(action=route('tasks') method='post')
+    +input(task, 'name', errors, 'tasks')(type="text")
+    .mb-3
+      label(for='data_description')= t('views.tasks.description')
+      textarea.form-control(id='data_description' name='data[description]')= task.description
+    .mb-3
+      label(for='data_statusId')= t('views.tasks.status')
+      select.form-control(id='data_statusId' name='data[statusId]')
+        option(value='')
+        each status in statuses
+          option(value=status.id selected=(task.statusId == status.id))= status.name
+    .mb-3
+      label(for='data_executorId')= t('views.tasks.executor')
+      select.form-control(id='data_executorId' name='data[executorId]')
+        option(value='')
+        each user in users
+          option(value=user.id selected=(task.executorId == user.id))= `${user.firstName} ${user.lastName}`
+    +submit(task)(value=t('views.tasks.new.submit'))

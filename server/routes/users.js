@@ -12,8 +12,9 @@ export default (app) => {
     .get('/users/new', { name: 'newUser' }, (req, reply) => {
       const user = new app.objection.models.user();
       reply.render('users/new', { user });
+      return reply;
     })
-    .get('/users/:id/edit', { name: 'editUser' }, async (req, reply) => {
+    .get('/users/:id/edit', { name: 'editUser', preValidation: app.authenticate }, async (req, reply) => {
       const user = await app.objection.models.user.query().findById(req.params.id);
       reply.render('users/edit', { user });
       return reply;
@@ -34,7 +35,7 @@ export default (app) => {
 
       return reply;
     })
-    .patch('/users/:id', { name: 'updateUser' }, async (req, reply) => {
+    .patch('/users/:id', { name: 'updateUser', preValidation: app.authenticate }, async (req, reply) => {
       const user = await app.objection.models.user.query().findById(req.params.id);
 
       try {
@@ -48,8 +49,19 @@ export default (app) => {
 
       return reply;
     })
-    .delete('/users/:id', { name: 'deleteUser' }, async (req, reply) => {
-      await app.objection.models.user.query().deleteById(req.params.id);
+    .delete('/users/:id', { name: 'deleteUser', preValidation: app.authenticate }, async (req, reply) => {
+      const user = await app.objection.models.user.query().findById(req.params.id);
+
+      const tasksAsCreator = await app.objection.models.task.query().where('creator_id', user.id);
+      const tasksAsExecutor = await app.objection.models.task.query().where('executor_id', user.id);
+
+      if (tasksAsCreator.length > 0 || tasksAsExecutor.length > 0) {
+        req.flash('error', i18next.t('flash.users.delete.error'));
+        reply.redirect(app.reverse('users'));
+        return reply;
+      }
+
+      await user.$query().delete();
       req.flash('info', i18next.t('flash.users.delete.success'));
       reply.redirect(app.reverse('users'));
       return reply;
