@@ -132,8 +132,9 @@ export default async (app, _options) => {
   addRoutes(app);
   addHooks(app);
 
-  app.addHook('onError', async (request, reply, error) => {
+  app.setErrorHandler(async (error, request, reply) => {
     rollbar.error(error, request.raw);
+    reply.send(error);
   });
   return app;
 };
