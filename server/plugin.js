@@ -25,7 +25,7 @@ import getHelpers from './helpers/index.js';
 import * as knexConfig from '../knexfile.js';
 import models from './models/index.js';
 import FormStrategy from './lib/passportStrategies/FormStrategy.js';
-import Rollbar from 'rollbar';
+import rollbar from '../rollbar.js';
 
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
 
@@ -122,12 +122,6 @@ export const options = {
 };
 
 // eslint-disable-next-line no-unused-vars
-const rollbar = new Rollbar({
-  accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
-  captureUncaught: true,
-  captureUnhandledRejections: true,
-  environment: process.env.ROLLBAR_ENVIRONMENT || 'development',
-});
 
 export default async (app, _options) => {
   await registerPlugins(app);
