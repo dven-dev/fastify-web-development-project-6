@@ -25,6 +25,7 @@ import getHelpers from './helpers/index.js';
 import * as knexConfig from '../knexfile.js';
 import models from './models/index.js';
 import FormStrategy from './lib/passportStrategies/FormStrategy.js';
+import Rollbar from 'rollbar';
 
 const __dirname = fileURLToPath(path.dirname(import.meta.url));
 
@@ -121,6 +122,13 @@ export const options = {
 };
 
 // eslint-disable-next-line no-unused-vars
+const rollbar = new Rollbar({
+  accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+  environment: process.env.ROLLBAR_ENVIRONMENT || 'development',
+});
+
 export default async (app, _options) => {
   await registerPlugins(app);
 
@@ -130,5 +138,8 @@ export default async (app, _options) => {
   addRoutes(app);
   addHooks(app);
 
+  app.addHook('onError', async (request, reply, error) => {
+    rollbar.error(error, request.raw);
+  });
   return app;
 };
