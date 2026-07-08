@@ -75,6 +75,7 @@ const addHooks = (app) => {
   app.addHook('preHandler', async (req, reply) => {
     reply.locals = {
       isAuthenticated: () => req.isAuthenticated(),
+      currentUser: req.user,
     };
   });
 };

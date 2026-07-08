@@ -26,11 +26,25 @@ export default {
           success: 'User deleted successfully',
         },
       },
+      statuses: {
+        create: {
+          error: 'Failed to create status',
+          success: 'Status created successfully',
+        },
+        update: {
+          error: 'Failed to update status',
+          success: 'Status updated successfully',
+        },
+        delete: {
+          success: 'Status deleted successfully',
+        },
+      },
       authError: 'Access denied! Please login',
     },
     layouts: {
       application: {
         users: 'Users',
+        statuses: 'Statuses',
         signIn: 'Login',
         signUp: 'Register',
         signOut: 'Logout',
@@ -48,8 +62,8 @@ export default {
         fullName: 'Full name',
         firstName: 'First name',
         lastName: 'Last name',
-        password: 'Password',
         email: 'Email',
+        password: 'Password',
         createdAt: 'Created at',
         actions: 'Actions',
         delete: 'Delete',
@@ -63,6 +77,24 @@ export default {
         edit: {
           submit: 'Update',
           title: 'Edit user',
+        },
+      },
+      statuses: {
+        id: 'ID',
+        name: 'Name',
+        createdAt: 'Created at',
+        actions: 'Actions',
+        delete: 'Delete',
+        index: {
+          title: 'Statuses',
+        },
+        new: {
+          title: 'Create status',
+          submit: 'Create',
+        },
+        edit: {
+          title: 'Edit status',
+          submit: 'Update',
         },
       },
       welcome: {

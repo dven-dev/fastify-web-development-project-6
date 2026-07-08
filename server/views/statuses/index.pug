@@ -1,0 +1,27 @@
+extends ../layouts/application.pug
+
+block header
+  = t('views.statuses.index.title')
+
+block content
+  if isAuthenticated()
+    a.btn.btn-primary.mb-3(href=route('newStatus'))= t('views.statuses.new.title')
+  table.table
+    thead
+      tr
+        th= t('views.statuses.id')
+        th= t('views.statuses.name')
+        th= t('views.statuses.createdAt')
+        if isAuthenticated()
+          th= t('views.statuses.actions')
+    tbody
+      each status in statuses
+        tr
+          td= status.id
+          td= status.name
+          td= formatDate(status.createdAt)
+          if isAuthenticated()
+            td
+              a(href=route('editStatus', { id: status.id }))= t('views.statuses.edit.title')
+              |  
+              +buttonTo(route('deleteStatus', { id: status.id }), 'delete')(class="btn btn-link p-0" value=t('views.statuses.delete'))

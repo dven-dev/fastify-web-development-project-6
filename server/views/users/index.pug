@@ -20,6 +20,7 @@ block content
           td= user.email
           td= formatDate(user.createdAt)
           td
-            a(href=route('editUser', { id: user.id }))= t('views.users.edit.title')
-            |  
-            +buttonTo(route('deleteUser', { id: user.id }), 'delete')(class="btn btn-link p-0" value=t('views.users.delete'))
+            if currentUser && currentUser.id === user.id
+              a(href=route('editUser', { id: user.id }))= t('views.users.edit.title')
+              |  
+              +buttonTo(route('deleteUser', { id: user.id }), 'delete')(class="btn btn-link p-0" value=t('views.users.delete'))
