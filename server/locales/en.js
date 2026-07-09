@@ -109,6 +109,7 @@ export default {
         edit: {
           submit: 'Update',
           title: 'Edit user',
+          link: 'Edit',
         },
       },
       statuses: {

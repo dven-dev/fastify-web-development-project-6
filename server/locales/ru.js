@@ -109,6 +109,7 @@ export default {
         edit: {
           submit: 'Сохранить',
           title: 'Изменение пользователя',
+          link: 'Изменить',
         },
       },
       statuses: {

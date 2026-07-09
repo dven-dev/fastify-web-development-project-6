@@ -4,7 +4,7 @@ block header
   = t('views.users.edit.title')
 
 block content
-  +formFor()(action=route('user', { id: user.id }) method='post')
+  +formFor()(action=route('updateUser', { id: user.id }) method='post')
     input(type='hidden' name='_method' value='PATCH')
     +input(user, 'firstName', errors)(type="text")
     +input(user, 'lastName', errors)(type="text")
