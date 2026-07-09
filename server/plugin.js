@@ -123,7 +123,7 @@ export const options = {
 
 // eslint-disable-next-line no-unused-vars
 
-export default async (app, _options) => {
+export default async (app) => {
   await registerPlugins(app);
 
   await setupLocalization();
