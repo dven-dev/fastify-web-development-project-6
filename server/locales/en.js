@@ -107,7 +107,7 @@ export default {
           signUp: 'Register',
         },
         edit: {
-          submit: 'Update',
+          submit: 'Edit',
           title: 'Edit user',
           link: 'Edit',
         },
@@ -127,7 +127,7 @@ export default {
         },
         edit: {
           title: 'Edit status',
-          submit: 'Update',
+          submit: 'Edit',
         },
       },
       tasks: {
@@ -157,7 +157,7 @@ export default {
         },
         edit: {
           title: 'Edit task',
-          submit: 'Update',
+          submit: 'Edit',
         },
       },
       labels: {
@@ -175,7 +175,7 @@ export default {
         },
         edit: {
           title: 'Edit label',
-          submit: 'Update',
+          submit: 'Edit',
         },
       },
       welcome: {
