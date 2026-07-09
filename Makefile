@@ -1,7 +1,7 @@
 setup: prepare install db-migrate
 
 install:
-	npm install
+	npm install --legacy-peer-deps
 
 db-migrate:
 	npx knex migrate:latest
