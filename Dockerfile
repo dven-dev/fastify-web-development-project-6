@@ -1,4 +1,4 @@
-FROM node:25-slim
+FROM node:22-slim
 
 RUN apt-get update && apt-get install -yq \
   build-essential \
@@ -11,7 +11,7 @@ WORKDIR /app
 COPY package.json .
 COPY package-lock.json .
 
-RUN npm ci
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
