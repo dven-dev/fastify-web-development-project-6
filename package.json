@@ -9,7 +9,7 @@
   },
   "scripts": {
     "prebuild": "rm -rf dist",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest --verbose --runInBand",
+    "test": "jest --verbose --runInBand",
     "build": "webpack",
     "start": "fastify start server/plugin.js -l debug -P -o"
   },
@@ -54,7 +54,7 @@
     "pug": "^3.0.3",
     "qs": "^6.11.2",
     "rollbar": "^2.26.4",
-    "sqlite3": "^5.1.7",
+    "sqlite3": "^6.0.1",
     "webpack": "^5.95.0"
   },
   "devDependencies": {
