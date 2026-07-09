@@ -1,5 +1,4 @@
 // @ts-check
-
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -22,15 +21,11 @@ export const test = {
   client: 'sqlite3',
   connection: ':memory:',
   useNullAsDefault: true,
-  // debug: true,
   migrations,
 };
 
 export const production = {
-  client: 'sqlite3',
-  connection: {
-    filename: path.resolve(__dirname, 'database.sqlite'),
-  },
-  useNullAsDefault: true,
+  client: 'pg',
+  connection: process.env.DATABASE_URL,
   migrations,
 };
