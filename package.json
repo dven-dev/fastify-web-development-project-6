@@ -23,6 +23,9 @@
   },
   "author": "Stanislav Dzisiak",
   "license": "ISC",
+  "overrides": {
+    "better-sqlite3": "^12.11.1"
+  },
   "dependencies": {
     "@fastify/formbody": "^7.4.0",
     "@fastify/passport": "^2.0.0",
