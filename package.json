@@ -23,9 +23,6 @@
   },
   "author": "Stanislav Dzisiak",
   "license": "ISC",
-  "overrides": {
-    "better-sqlite3": "^12.11.1"
-  },
   "dependencies": {
     "@fastify/formbody": "^7.4.0",
     "@fastify/passport": "^2.0.0",
@@ -40,7 +37,7 @@
     "fastify-cli": "^6.3.0",
     "fastify-error-page": "^4.0.0",
     "fastify-method-override": "^1.5.10",
-    "fastify-objectionjs": "^2.0.1",
+    "fastify-objectionjs": "file:./vendor/fastify-objectionjs",
     "fastify-reverse-routes": "^3.0.0",
     "i18next": "^25.8.18",
     "jquery": "^3.7.1",
