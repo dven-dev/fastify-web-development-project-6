@@ -7,3 +7,6 @@ tmp/
 temp/
 database.sqlite
 .env
+coverage/
+update_fastify3_to_fastify4.md
+update_to_esm.md
