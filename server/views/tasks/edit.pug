@@ -23,8 +23,8 @@ block content
         each user in users
           option(value=user.id selected=(task.executorId == user.id))= `${user.firstName} ${user.lastName}`
     .mb-3
-      label(for='data_labelIds')= t('views.tasks.labels')
-      select.form-control(id='data_labelIds' name='data[labelIds][]' multiple)
+      label(for='data_labels')= t('views.tasks.labels')
+      select.form-control(id='data_labels' name='data[labelIds][]' multiple)
         each label in labels
           - const selected = task.labels && task.labels.some(l => l.id === label.id)
           option(value=label.id selected=selected)= label.name
