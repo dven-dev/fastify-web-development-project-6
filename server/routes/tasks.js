@@ -77,7 +77,7 @@ export default (app) => {
       try {
         const validTask = await app.objection.models.task.fromJson({
           ...taskData,
-          statusId: parseInt(taskData.statusId, 10),
+          statusId: taskData.statusId ? parseInt(taskData.statusId, 10) : undefined,
           executorId: taskData.executorId ? parseInt(taskData.executorId, 10) : undefined,
           creatorId: req.user.id,
         });
@@ -88,11 +88,10 @@ export default (app) => {
         req.flash('info', i18next.t('flash.tasks.create.success'));
         reply.redirect(app.reverse('tasks'));
       } catch (err) {
-        console.error(err);
         const users = await app.objection.models.user.query();
         const statuses = await app.objection.models.taskStatus.query();
         const labels = await app.objection.models.label.query();
-        req.flash('error', i18next.t('flash.tasks.create.error'));
+        req.flash('error', `${i18next.t('flash.tasks.create.error')}: ${err.message}`);
         reply.render('tasks/new', {
           task, users, statuses, labels, errors: err.data,
         });
@@ -111,7 +110,7 @@ export default (app) => {
       try {
         await task.$query().patch({
           ...taskData,
-          statusId: parseInt(taskData.statusId, 10),
+          statusId: taskData.statusId ? parseInt(taskData.statusId, 10) : undefined,
           executorId: taskData.executorId ? parseInt(taskData.executorId, 10) : undefined,
         });
         await task.$relatedQuery('labels').unrelate();
@@ -121,11 +120,10 @@ export default (app) => {
         req.flash('info', i18next.t('flash.tasks.update.success'));
         reply.redirect(app.reverse('tasks'));
       } catch (err) {
-        console.error(err);
         const users = await app.objection.models.user.query();
         const statuses = await app.objection.models.taskStatus.query();
         const labels = await app.objection.models.label.query();
-        req.flash('error', i18next.t('flash.tasks.update.error'));
+        req.flash('error', `${i18next.t('flash.tasks.update.error')}: ${err.message}`);
         reply.render('tasks/edit', {
           task, users, statuses, labels, errors: err.data,
         });
