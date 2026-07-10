@@ -70,6 +70,7 @@ export default {
         },
       },
       authError: 'Access denied! Please login',
+      accessDenied: 'You cannot edit or delete another user',
     },
     layouts: {
       application: {

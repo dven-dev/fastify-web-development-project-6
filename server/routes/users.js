@@ -15,6 +15,12 @@ export default (app) => {
       return reply;
     })
     .get('/users/:id/edit', { name: 'editUser', preValidation: app.authenticate }, async (req, reply) => {
+      if (req.user.id !== Number(req.params.id)) {
+        req.flash('error', i18next.t('flash.accessDenied'));
+        reply.redirect(app.reverse('users'));
+        return reply;
+      }
+
       const user = await app.objection.models.user.query().findById(req.params.id);
       reply.render('users/edit', { user });
       return reply;
@@ -36,6 +42,12 @@ export default (app) => {
       return reply;
     })
     .patch('/users/:id', { name: 'updateUser', preValidation: app.authenticate }, async (req, reply) => {
+      if (req.user.id !== Number(req.params.id)) {
+        req.flash('error', i18next.t('flash.accessDenied'));
+        reply.redirect(app.reverse('users'));
+        return reply;
+      }
+
       const user = await app.objection.models.user.query().findById(req.params.id);
 
       try {
@@ -50,6 +62,12 @@ export default (app) => {
       return reply;
     })
     .delete('/users/:id', { name: 'deleteUser', preValidation: app.authenticate }, async (req, reply) => {
+      if (req.user.id !== Number(req.params.id)) {
+        req.flash('error', i18next.t('flash.accessDenied'));
+        reply.redirect(app.reverse('users'));
+        return reply;
+      }
+
       const user = await app.objection.models.user.query().findById(req.params.id);
 
       const tasksAsCreator = await app.objection.models.task.query().where('creator_id', user.id);
