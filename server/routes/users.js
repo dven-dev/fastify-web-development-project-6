@@ -79,7 +79,14 @@ export default (app) => {
         return reply;
       }
 
+      const isDeletingSelf = req.user.id === user.id;
+
       await user.$query().delete();
+
+      if (isDeletingSelf) {
+        req.logOut();
+      }
+
       req.flash('info', i18next.t('flash.users.delete.success'));
       reply.redirect(app.reverse('users'));
       return reply;
