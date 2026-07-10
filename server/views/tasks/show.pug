@@ -18,11 +18,18 @@ block content
           p
             | #{t('views.tasks.executor')}  
             = task.executor ? `${task.executor.firstName} ${task.executor.lastName}` : ''
+          if task.labels && task.labels.length > 0
+            p
+              | #{t('views.tasks.labels')}  
+              each label, index in task.labels
+                span= label.name
+                if index < task.labels.length - 1
+                  | ,
           p
             | #{t('views.tasks.createdAt')}  
             = formatDate(task.createdAt)
           if isAuthenticated()
             .d-flex.gap-2
-              a.btn.btn-primary(href=route('editTask', { id: task.id }))= t('views.tasks.edit.title')
+              a.btn.btn-primary(href=route('editTask', { id: task.id }))= t('views.tasks.edit.link')
               if currentUser && currentUser.id === task.creatorId
                 +buttonTo(route('deleteTask', { id: task.id }), 'delete')(class="btn btn-danger" value=t('views.tasks.delete'))
