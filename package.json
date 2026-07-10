@@ -14,13 +14,21 @@
     "start": "fastify start server/plugin.js -l debug -P -o"
   },
   "jest": {
-    "modulePathIgnorePatterns": [
-      "<rootDir>/__tests__/helpers/"
-    ],
-    "setupFiles": [
-      "dotenv/config"
-    ]
-  },
+  "modulePathIgnorePatterns": [
+    "<rootDir>/__tests__/helpers/"
+  ],
+  "setupFiles": [
+    "dotenv/config"
+  ],
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "server/**/*.js"
+  ],
+  "coverageReporters": [
+    "lcov",
+    "text"
+  ]
+},
   "author": "Stanislav Dzisiak",
   "license": "ISC",
   "overrides": {
