@@ -119,6 +119,7 @@ const registerPlugins = async (app) => {
 
 export const options = {
   exposeHeadRoutes: false,
+  querystringParser: (str) => qs.parse(str),
 };
 
 // eslint-disable-next-line no-unused-vars
