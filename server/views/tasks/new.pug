@@ -11,10 +11,12 @@ block content
       textarea.form-control(id='data_description' name='data[description]')= task.description
     .mb-3
       label(for='data_statusId')= t('views.tasks.status')
-      select.form-control(id='data_statusId' name='data[statusId]')
+      select.form-control(id='data_statusId' name='data[statusId]' class=(errors && errors.statusId ? 'is-invalid' : ''))
         option(value='')
         each status in statuses
           option(value=status.id selected=(task.statusId == status.id))= status.name
+      if errors && errors.statusId
+        .invalid-feedback.d-block= errors.statusId.map(({ message }) => message).join('. ')
     .mb-3
       label(for='data_executorId')= t('views.tasks.executor')
       select.form-control(id='data_executorId' name='data[executorId]')
