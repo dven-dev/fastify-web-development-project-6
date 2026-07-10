@@ -5,7 +5,7 @@ block header
 
 block content
   if isAuthenticated()
-    a.btn.btn-primary.mb-3(href=route('newTask'))= t('views.tasks.new.title')
+    a.btn.btn-primary.mb-3(href=route('newTask'))= t('views.tasks.new.link')
 
   form.mb-4(action=route('tasks') method='get')
     .row
@@ -52,7 +52,7 @@ block content
           td= formatDate(task.createdAt)
           td
             if isAuthenticated()
-              a(href=route('editTask', { id: task.id }))= t('views.tasks.edit.title')
+              a(href=route('editTask', { id: task.id }))= t('views.tasks.edit.link')
               |  
               if currentUser && currentUser.id === task.creatorId
                 +buttonTo(route('deleteTask', { id: task.id }), 'delete')(class="btn btn-link p-0" value=t('views.tasks.delete'))

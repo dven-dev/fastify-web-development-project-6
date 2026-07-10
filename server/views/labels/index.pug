@@ -5,7 +5,7 @@ block header
 
 block content
   if isAuthenticated()
-    a.btn.btn-primary.mb-3(href=route('newLabel'))= t('views.labels.new.title')
+    a.btn.btn-primary.mb-3(href=route('newLabel'))= t('views.labels.new.link')
   table.table
     thead
       tr
@@ -22,6 +22,6 @@ block content
           td= formatDate(label.createdAt)
           if isAuthenticated()
             td
-              a(href=route('editLabel', { id: label.id }))= t('views.labels.edit.title')
+              a(href=route('editLabel', { id: label.id }))= t('views.labels.edit.link')
               |  
               +buttonTo(route('deleteLabel', { id: label.id }), 'delete')(class="btn btn-link p-0" value=t('views.labels.delete'))

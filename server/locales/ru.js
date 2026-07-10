@@ -124,11 +124,13 @@ export default {
         },
         new: {
           title: 'Создание статуса',
+          link: 'Создать статус',
           submit: 'Создать',
         },
         edit: {
           title: 'Изменение статуса',
           submit: 'Изменить',
+          link: 'Изменить',
         },
       },
       tasks: {
@@ -154,11 +156,16 @@ export default {
         },
         new: {
           title: 'Создание задачи',
+          link: 'Создать задачу',
           submit: 'Создать',
         },
         edit: {
           title: 'Изменение задачи',
           submit: 'Изменить',
+          link: 'Изменить',
+        },
+        show: {
+          link: 'Просмотр',
         },
       },
       labels: {
@@ -172,11 +179,13 @@ export default {
         },
         new: {
           title: 'Создание метки',
+          link: 'Создать метку',
           submit: 'Создать',
         },
         edit: {
           title: 'Изменение метки',
           submit: 'Изменить',
+          link: 'Изменить',
         },
       },
       welcome: {

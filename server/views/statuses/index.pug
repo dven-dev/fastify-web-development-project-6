@@ -5,7 +5,7 @@ block header
 
 block content
   if isAuthenticated()
-    a.btn.btn-primary.mb-3(href=route('newStatus'))= t('views.statuses.new.title')
+    a.btn.btn-primary.mb-3(href=route('newStatus'))= t('views.statuses.new.link')
   table.table
     thead
       tr
@@ -22,6 +22,6 @@ block content
           td= formatDate(status.createdAt)
           if isAuthenticated()
             td
-              a(href=route('editStatus', { id: status.id }))= t('views.statuses.edit.title')
+              a(href=route('editStatus', { id: status.id }))= t('views.statuses.edit.link')
               |  
               +buttonTo(route('deleteStatus', { id: status.id }), 'delete')(class="btn btn-link p-0" value=t('views.statuses.delete'))

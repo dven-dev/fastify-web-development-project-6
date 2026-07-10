@@ -124,11 +124,13 @@ export default {
         },
         new: {
           title: 'Create status',
+          link: 'Create status',
           submit: 'Create',
         },
         edit: {
           title: 'Edit status',
           submit: 'Edit',
+          link: 'Edit',
         },
       },
       tasks: {
@@ -154,11 +156,16 @@ export default {
         },
         new: {
           title: 'Create task',
+          link: 'Create task',
           submit: 'Create',
         },
         edit: {
           title: 'Edit task',
           submit: 'Edit',
+          link: 'Edit',
+        },
+        show: {
+          link: 'Show',
         },
       },
       labels: {
@@ -172,11 +179,13 @@ export default {
         },
         new: {
           title: 'Create label',
+          link: 'Create label',
           submit: 'Create',
         },
         edit: {
           title: 'Edit label',
           submit: 'Edit',
+          link: 'Edit',
         },
       },
       welcome: {
