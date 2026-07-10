@@ -82,16 +82,16 @@ export default (app) => {
           creatorId: req.user.id,
         });
         const insertedTask = await app.objection.models.task.query().insert(validTask);
-        if (labelIds.length > 0) {
-          await insertedTask.$relatedQuery('labels').relate(labelIds);
-        }
+        await Promise.all(
+          labelIds.map((labelId) => insertedTask.$relatedQuery('labels').relate(labelId)),
+        );
         req.flash('info', i18next.t('flash.tasks.create.success'));
         reply.redirect(app.reverse('tasks'));
       } catch (err) {
         const users = await app.objection.models.user.query();
         const statuses = await app.objection.models.taskStatus.query();
         const labels = await app.objection.models.label.query();
-        req.flash('error', `${i18next.t('flash.tasks.create.error')}: ${err.message}`);
+        req.flash('error', i18next.t('flash.tasks.create.error'));
         reply.render('tasks/new', {
           task, users, statuses, labels, errors: err.data,
         });
@@ -114,16 +114,16 @@ export default (app) => {
           executorId: taskData.executorId ? parseInt(taskData.executorId, 10) : undefined,
         });
         await task.$relatedQuery('labels').unrelate();
-        if (labelIds.length > 0) {
-          await task.$relatedQuery('labels').relate(labelIds);
-        }
+        await Promise.all(
+          labelIds.map((labelId) => task.$relatedQuery('labels').relate(labelId)),
+        );
         req.flash('info', i18next.t('flash.tasks.update.success'));
         reply.redirect(app.reverse('tasks'));
       } catch (err) {
         const users = await app.objection.models.user.query();
         const statuses = await app.objection.models.taskStatus.query();
         const labels = await app.objection.models.label.query();
-        req.flash('error', `${i18next.t('flash.tasks.update.error')}: ${err.message}`);
+        req.flash('error', i18next.t('flash.tasks.update.error'));
         reply.render('tasks/edit', {
           task, users, statuses, labels, errors: err.data,
         });
