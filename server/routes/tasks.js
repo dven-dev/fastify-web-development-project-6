@@ -6,6 +6,7 @@ export default (app) => {
   app
     .get('/tasks', { name: 'tasks' }, async (req, reply) => {
       const filter = req.query.filter || {};
+      console.log('QUERY:', JSON.stringify(req.query));
       let query = app.objection.models.task.query()
         .withGraphJoined('[status, creator, executor, labels]');
 
@@ -24,6 +25,7 @@ export default (app) => {
         query = query.where('tasks.creator_id', req.user.id);
       }
 
+      console.log('SQL:', query.toString());
       const tasks = await query;
       const users = await app.objection.models.user.query();
       const statuses = await app.objection.models.taskStatus.query();
