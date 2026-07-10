@@ -71,13 +71,14 @@ export default (app) => {
     .post('/tasks', { preValidation: app.authenticate }, async (req, reply) => {
       const task = new app.objection.models.task();
       task.$set(req.body.data);
-      const labelIds = [req.body.data.labelIds].flat().filter(Boolean).map(Number);
+      const { labelIds: rawLabelIds, ...taskData } = req.body.data;
+      const labelIds = [rawLabelIds].flat().filter(Boolean).map(Number);
 
       try {
         const validTask = await app.objection.models.task.fromJson({
-          ...req.body.data,
-          statusId: parseInt(req.body.data.statusId, 10),
-          executorId: req.body.data.executorId ? parseInt(req.body.data.executorId, 10) : undefined,
+          ...taskData,
+          statusId: parseInt(taskData.statusId, 10),
+          executorId: taskData.executorId ? parseInt(taskData.executorId, 10) : undefined,
           creatorId: req.user.id,
         });
         const insertedTask = await app.objection.models.task.query().insert(validTask);
@@ -87,7 +88,6 @@ export default (app) => {
         req.flash('info', i18next.t('flash.tasks.create.success'));
         reply.redirect(app.reverse('tasks'));
       } catch (err) {
-        console.error(err);
         const users = await app.objection.models.user.query();
         const statuses = await app.objection.models.taskStatus.query();
         const labels = await app.objection.models.label.query();
@@ -104,13 +104,14 @@ export default (app) => {
       reply,
     ) => {
       const task = await app.objection.models.task.query().findById(req.params.id);
-      const labelIds = [req.body.data.labelIds].flat().filter(Boolean).map(Number);
+      const { labelIds: rawLabelIds, ...taskData } = req.body.data;
+      const labelIds = [rawLabelIds].flat().filter(Boolean).map(Number);
 
       try {
         await task.$query().patch({
-          ...req.body.data,
-          statusId: parseInt(req.body.data.statusId, 10),
-          executorId: req.body.data.executorId ? parseInt(req.body.data.executorId, 10) : undefined,
+          ...taskData,
+          statusId: parseInt(taskData.statusId, 10),
+          executorId: taskData.executorId ? parseInt(taskData.executorId, 10) : undefined,
         });
         await task.$relatedQuery('labels').unrelate();
         if (labelIds.length > 0) {
@@ -119,7 +120,6 @@ export default (app) => {
         req.flash('info', i18next.t('flash.tasks.update.success'));
         reply.redirect(app.reverse('tasks'));
       } catch (err) {
-        console.error(err);
         const users = await app.objection.models.user.query();
         const statuses = await app.objection.models.taskStatus.query();
         const labels = await app.objection.models.label.query();
