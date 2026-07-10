@@ -87,6 +87,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.tasks.create.success'));
         reply.redirect(app.reverse('tasks'));
       } catch (err) {
+        console.error(err);
         const users = await app.objection.models.user.query();
         const statuses = await app.objection.models.taskStatus.query();
         const labels = await app.objection.models.label.query();
@@ -118,6 +119,7 @@ export default (app) => {
         req.flash('info', i18next.t('flash.tasks.update.success'));
         reply.redirect(app.reverse('tasks'));
       } catch (err) {
+        console.error(err);
         const users = await app.objection.models.user.query();
         const statuses = await app.objection.models.taskStatus.query();
         const labels = await app.objection.models.label.query();
