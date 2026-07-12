@@ -5,7 +5,7 @@ import qs from 'qs';
 
 export default (app) => {
   app
-    .get('/tasks', { name: 'tasks' }, async (req, reply) => {
+    .get('/tasks', { name: 'tasks', preValidation: app.authenticate }, async (req, reply) => {
       const rawQuery = req.raw.url.split('?')[1] || '';
       const filter = qs.parse(rawQuery).filter || {};
       let query = app.objection.models.task.query()
@@ -48,7 +48,7 @@ export default (app) => {
       });
       return reply;
     })
-    .get('/tasks/:id', { name: 'task' }, async (req, reply) => {
+    .get('/tasks/:id', { name: 'task', preValidation: app.authenticate }, async (req, reply) => {
       const task = await app.objection.models.task.query()
         .findById(req.params.id)
         .withGraphJoined('[status, creator, executor, labels]');

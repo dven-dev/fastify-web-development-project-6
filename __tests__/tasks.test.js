@@ -39,6 +39,7 @@ describe('test tasks CRUD', () => {
     const response = await app.inject({
       method: 'GET',
       url: app.reverse('tasks'),
+      cookies,
     });
     expect(response.statusCode).toBe(200);
   });

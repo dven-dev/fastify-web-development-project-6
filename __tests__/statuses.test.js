@@ -38,6 +38,7 @@ describe('test statuses CRUD', () => {
     const response = await app.inject({
       method: 'GET',
       url: app.reverse('statuses'),
+      cookies: cookie,
     });
     expect(response.statusCode).toBe(200);
   });

@@ -36,6 +36,7 @@ describe('test labels CRUD', () => {
     const response = await app.inject({
       method: 'GET',
       url: app.reverse('labels'),
+      cookies,
     });
     expect(response.statusCode).toBe(200);
   });
